@@ -4,12 +4,11 @@ import typing
 
 # Konfiguration
 DATA_DIR = os.path.join(os.path.dirname(__file__), "../data/")
-DATA_FILE = "source_data.csv"
+SOURCE_FILE = "source_data.csv"
 OUTPUT_DIR = os.path.join(DATA_DIR, "output/")
 DOMAINS = ["gmail.com", "hotmail.com", "yahoo.com"]
 
 error_log = []
-valid_entries = {}
 
 def print_error(line: int, message: str, value: typing.Any = None) -> None:
     error_message = f"FEJL i række {line + 1}: {message}{f" ({value=})" if value else ""}"
@@ -62,9 +61,12 @@ def check_name(name: str, line: int) -> str | None:
         print_error(line, "Intet navn angivet.")
         return
     # Tjekker om 'name' indeholder andre tegn end bogstaver, mellemrum og bindestreger
-    if re.match(r"[^A-Za-z\-\ ]", name):
+    if re.search(r"[^A-Za-z\-\ ]", name):
         print_error(line, "Kundenavnet indeholder ugyldige tegn.", name)
         return
+    # TODO: Tjek for "Dr., Mr., Mrs., Ms." etc. (samme i email, da denne måske er genereret ud fra de to første ord i navnet)
+    # Også efterstillede titler som "MD, PhD, DVM" etc.
+    # Også om alle ord i navnet starter med en majuskel (pas dog på med "van, von" o.lign.)
 
     return name
 
@@ -80,11 +82,13 @@ def check_email(email: str, line, tried: bool = False) -> str | None:
             print_error(line, "Emailadressen indeholder intet @.", email)
             return
         if '@' not in email:
-            print(f"Mulig fejl i række {line + 1}. Emailadressen indeholder intet @. Forsøger at fikse...", email)
+            print(f"Mulig fejl i række {line + 1}. Emailadressen indeholder intet @. Forsøger at fikse... value='{email}'")
             for domain in DOMAINS:
                 if email.endswith(domain):
                     new_email = email[:-len(domain)] + '@' + email[-len(domain):]
-                    check_email(new_email, line, True)
+                    new_email = check_email(new_email, line, True)
+                    if new_email is not None:
+                        return new_email
             else:
                 print_error(line, "Emailadressen indeholder intet @.", email)
                 return
@@ -97,16 +101,16 @@ def check_email(email: str, line, tried: bool = False) -> str | None:
         if not re.match(r"^[A-z0-9._%+-]+@", email):
             print_error(line, "Emailadressen har en ugyldig lokal adresse før @.", email)
             return
-        if not re.match(r"@[A-z0-9.-]+\.[A-z]{2,}$", email):
+        if not re.search(r"@[A-z0-9.-]+\.[A-z]{2,}$", email):
             print_error(line, "Emailadressen har et ugyldigt domæne efter @.", email)
             return
         print_error(line, "Emailadressen er muligvis ugyldig", email)
         return
     # Tjekker for andre ting, der ikke er gyldige i en emailadresse
-    if re.match(r"[.-_]+", email):
+    if re.search(r"[._-]{2,}", email):
         print_error(line, "Emailadressen er ugyldig, da den indeholder duplikerede særlige tegn.", email)
         return
-    if re.match(r"^[.-_]", email) or re.match(r"[.-_]$", email):
+    if re.search(r"^[._-]", email) or re.search(r"[._-]$", email):
         print_error(line, "Emailadressen er ugyldig, da den begynder eller slutter på et særligt tegn.", email)
         return
 
@@ -121,20 +125,25 @@ def check_amount(purchase_amount: str, line: int) -> float | None:
         return
     # Tjekker om 'purchase_amount' er et tal
     try:
-        float(purchase_amount)
+        amount = float(purchase_amount)
     except (TypeError, ValueError):
         print_error(line, "Ugyldigt beløb angivet.", purchase_amount)
+        return
+    if amount < 0:
+        print_error(line, "Beløbet må ikke være negativt", purchase_amount)
         return
 
     return float(purchase_amount)
 
-def check_data(dir: str = DATA_DIR, file: str = DATA_FILE) -> None:
+def check_data(dir: str = DATA_DIR, filename: str = SOURCE_FILE) -> list[dict[str]]:
     try:
-        with open(os.path.join(DATA_DIR, DATA_FILE)) as file:
+        with open(os.path.join(dir, filename)) as file:
             raw_data = file.readlines()
     except FileNotFoundError:
         print("Den angivne datafil findes ikke.")
         return
+
+    valid_entries = []
 
     for line, entry in enumerate(raw_data):
         # Springer over header
@@ -164,14 +173,30 @@ def check_data(dir: str = DATA_DIR, file: str = DATA_FILE) -> None:
 
         # De tilbageværende entries burde være valide og kan indsættes i en liste,
         # der kan bruges til at skrive til output-filen
-        valid_entries[line] = {
+        valid_entries.append({
             "customer_id": customer_id,
             "name": name,
             "email": email,
             "purchase_amount": purchase_amount
-        }
+        })
+    
+    return valid_entries
+
+def save_data(entries: list[dict[str]] | list[str], dir: str = OUTPUT_DIR, filename: str = "output.csv", append: bool = False) -> None:
+    try:
+        with open(os.path.join(dir, filename), "a" if append else "w", encoding="UTF-8") as file:
+            for entry in entries:
+                if isinstance(entry, dict):
+                    entry = ','.join(str(value) for value in entry.values())
+                try:
+                    file.write(entry + '\n')
+                except:
+                    print("Fejl ved skrivning til output-fil. Filen er muligvis skrivebeskyttet.")
+    except FileNotFoundError:
+        print("Fejl ved skrivning til output-fil. Den angivne fil eller filsti eksisterer ikke.")
 
 if __name__ == "__main__":
-    check_data()
-    print(valid_entries)
-    print(f"Valid entries: {len(valid_entries)}")
+    result = check_data()
+    print(f"Valid entries: {len(result)}")
+    save_data(result)
+    save_data(error_log, filename="log.txt")

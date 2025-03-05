@@ -2,9 +2,11 @@ import os.path
 import matplotlib
 from collections import Counter
 
+# Config
+DATA_DIR = os.path.join(os.path.dirname(__file__), "../data/")
 DATA_FILE = "Navne_liste.txt"
 
-with open(os.path.join(os.path.dirname(__file__), "../data/", DATA_FILE), "r", encoding="UTF-8") as file:
+with open(os.path.join(DATA_DIR, DATA_FILE), "r", encoding="UTF-8") as file:
     raw_input = file.readline()
     
 sorted_names = sorted(raw_input.split(','), key=lambda x: (x, len(x)))
