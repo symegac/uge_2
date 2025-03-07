@@ -1,0 +1,150 @@
+Jeg har måske overset nogle fejl i spansk/portugisisk tekst, da jeg ikke er så bevandret i de sprog.
+
+customers
+I denne tabel er alle ikke-ASCII tegn forsvundet, f.eks æøåäöáéíóúèêãß
+	CompanyName
+		Antonio Moreno Taquer[í]a			ANTON
+		Berglunds snabbk[ö]p				BERGS
+		Blondesddsl [?] p[è]re et fils		BLONP	(Blondel i "orders", hvor kommer sdds fra?)
+		B[ó]lido Comidas preparadas			BOLID
+		Com[é]rcio Mineiro					COMMI
+		Folk och f[ä] HB					FOLKO
+		Galer[í]a del gastr[ó]nomo			GALED
+		Godos Cocina T[í]pica				GODOS
+		K[ö]niglich Essen					KOENE
+		M[è]re Paillarde					MEREP
+		Oc[é]ano Atl[á]ntico Ltda.			OCEAN
+		Ottilies K[ä]seladen				OTTIK
+		Paris sp[é]cialit[é]s				PARIS
+		Pericles Comidas cl[á]sicas			PERIC
+		Que Del[í]cia						QUEDE
+		Sp[é]cialit[é]s du monde			SPECD
+		Supr[ê]mes d[é]lices				SUPRD
+		Toms Specialit[ä]ten				TOMSP
+		Wolski  Zajazd [- ]					WOLZA	(ekstra mellemrum)
+	ContactName
+		Fr[é]d[é]rique Citeaux				BLONP
+		Mart[í]n Sommer						BOLID
+		Martine Ranc[é]						FOLIC
+		Jos[é] Pedro Freyre					GODOS
+		Andr[é] Fonseca						GOURL
+		Carlos Hern[á]ndex					HILAA
+		Carlos Gonz[á]lez					LILAS
+		Guillermo Fern[á]ndez				PERIC
+		L[ú]cia Carvalho					QUEEN
+		Sergio Guti[é]rrez					RANCH
+		Rita M[ü/ö]ller						WANDK
+	Address
+		Avda. de la Constituci[ó]n			ANATR
+		Mataderos  2312 [- ]				ANTON	(ekstra mellemrum)
+		Berguvsv[ä]gen						BERGS
+		place K[é]lber						BLONP
+		184, chauss[é]e de Tournai			FOLIG
+		[Å]kergatan							FOLKO
+		Rambla de Cataluña				    GALED
+		Carrera 52 con Ave. Bol[í]var		LILAS
+		Alameda dos Can[á]rios				QUEEN
+		Taucherstra[ß]e						QUICK
+		Gran V[í]a							ROMEY
+		Vinb[æ]ltet 34						SIMOB
+		Av. In[ê]s de Castro, 414			TRADH
+		Smagsloget 45 [ø]					VAFFE
+	City
+		M[é]xico D.F.						ANATR, ANTON, CENTC, PERIC, TORTU,
+		Lule[å]								BERGS
+		Sao Paulo [ã]						COMMI, FAMIA, QUEEN, TRADH,
+		Br[ä]cke							FOLKO
+		M[ü]nchen							FRANK
+		San Crist[ó]bal						HILAA
+		Montr[é]al							MEREP
+		K[ö]ln								OTTIK
+		Gen[è]ve							RISCU
+		Kobenhavn [ø]						SIMOB
+		M[ü]nster							TOMSP
+		[Å]rhus								VAFFE
+		T[á]chira							HILAA
+		Qu[é]bec							MEREP
+	PHONE/FAX
+		2967 542 [7d?]	2967 3333 [8d?]	HUNGO	(syv cifre vs otte cifre)
+
+	Andet
+		Begge af disse to er helt ødelagt datamæssigt
+		Val2
+		VALON
+
+orders
+Udover alle de manglende ikke-ASCII-bogstaver er alle apostroffer blevet til bindestreg
+	ShipName
+		Bon app- [']						BONAP
+		B-s Beverages [']					BSBEV
+		La maison d-Asie [']				LAMAI
+	ShipAddress
+		59 rye de l-Abbaye [']				VINET
+
+products
+De to første er ikke fejl i dataindtastning, men noget med japansk romanisering
+Resten er fejl med ikke-ASCII-tegn igen
+	ProductName
+		Mishi Kobe Niku						9	(ikke datafejl, men viser ikke lang vokal i Koube - og mishi er ikke et ord på japansk)
+		Gen[']en Shouyu						15	(ikke datafejl, men mangelfuld romanisering)
+		Gustaf's Kn[ä]ckebr[ö]d				22
+		Tunnbr[ö]d							23
+		Guaran Fant[á]stica					24
+		Gumb[ä?]r Gummib[ä]rchen			26
+		R[ö?]ssle Sauerkraut				28
+		Th[ü]ringer Rostbratwurst			29
+		C[ô]te de Blaye						38
+		Rogede sild [ø]						45
+		P[â]t[é] chinois					55
+		Sirop d'[é]rable					61
+		Veg[g]ie-spread 					63	(tastefejl/andet sprog?)
+		Wimmers gute Semmelkn[ö]del			64
+		Flotemysost [ø]						71
+		R[ø]d Kaviar						73
+		Rh[ö]nbr[ä]u Klosterbier			75
+		Original Frankfurter gr[ü]ne So[ß]e	77
+
+region
+Alle andre kardinale retninger har ikke s efter
+	Westerns								2
+
+shipper
+	United Package[s]						2
+
+suppliers
+Igen ASCII-problemer
+	CompanyName
+		PB Kn[ä]ckebr[ö]d AB				9
+		Heli Swaren GmbH [Helis Waren?]		11	(mulig fejl?)
+		Plutzer Lebensmittelgro[ß]m[ä]rkte	12
+		Nord-Ost-Fisch ... [G]mbH			13
+		Svensk Sj[ö]f[ö]da AB				17
+		Aux joyeux eccl[é]siastiques		18
+		Gai p[â]turage						28
+		Forts d'[é]rables					29
+	ContactName
+		Mayumi Ohno [Ouno] 					6	(ikke en datafejl, bare en gammel romanisering)
+		Michael Bj[ö]rn						17
+		Guyl[è]ne Nodier					18
+	Address
+		9-8 Sekimai Musashino-shi [Sekimae]	4	(ikke en datafejl, men forkert stavemåde af bynavn)
+		92 Setsuko Chuo-ku [Chuuou-ku]		6	(ikke en datafejl, viser bare ikke lange vokaler)
+		Kaloadagatan 13 [???]				9	(mulig fejl? Kalendegatan?)
+		Tiergartenstra[ß]e					11
+		Brovallav[ä]gen 231					17
+	City
+		G[ö]teborg							9
+		S[ã]o Paulo							10
+		Montr[é]al							25
+	Region
+		Qu[é]bec							25, 29
+	HomePage
+	Kun en HTML-fil, intet domæne
+		#CAJUN.HTM#							2
+		#FORMAGGI.HTM#						14
+
+territories
+	TerritoryDescription
+		Georgetow[n]						01833
+		2x New York ?						10019, 10038	(nok ikke fejl, da byen er så stor, måske NYC og NY State)
+		Mellvile [Melville]					11747
