@@ -4,6 +4,7 @@
 > git clone https://github.com/symegac/uge_2.git
 2. Naviger til den nye mappe og lav et virtuelt miljø:
 > cd uge_2
+>
 > py -m venv .venv
 3. Aktivér miljøet i din foretrukne shell, her bash som eksempel (kør .bat-filen i samme mappe hvis cmd eller .ps1-filen hvis powershell):
 > source .venv/Scripts/activate
@@ -53,7 +54,7 @@ Den ekstra opgave var ret svær for mig at komme i gang med, da jeg ikke kendte 
 
 Det var lidt svært at finde rundt i Workbench i starten, men jeg fik importeret databasen gennem SQL-scriptet og fik også bygget et diagram i Workbench, som kan tilgås [her](suppl_opgave/suppl_opg_2.1.pdf).
 
-Jeg kendte allerede lidt til SQL, så det gik rimelig godt med at få skrever de forskellige queries. Der var dog to af dem, som ikke syntes at give samme antal rækker som i opgavebeskrivelsens facit. Min SQL-fil kan findes [her](suppl_opgave/uge3_opgave4.sql).
+Jeg kendte allerede lidt til SQL, så det gik rimelig godt med at få skrevet de forskellige queries. Der var dog to af dem, som ikke syntes at give samme antal rækker som i opgavebeskrivelsens facit. Min SQL-fil kan findes [her](suppl_opgave/uge3_opgave4.sql).
 
 Jeg syntes det var meget mere intuitivt at lave selve analysen direkte i SQL-queriet end at udtrække nogle data med SQL og så analysere med Pandas. Men det var da meget lærerigt, da man skulle lære nogle nye ting i Pandas, f.eks. pendanten til SQL's <code> SELECT (col1 * col2) AS col3</code>.
 

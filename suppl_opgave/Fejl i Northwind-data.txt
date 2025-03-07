@@ -28,7 +28,7 @@ I denne tabel er alle ikke-ASCII tegn forsvundet, f.eks æøåäöáéíóúèê
 		Martine Ranc[é]						FOLIC
 		Jos[é] Pedro Freyre					GODOS
 		Andr[é] Fonseca						GOURL
-		Carlos Hern[á]ndex					HILAA
+		Carlos Hern[á]ndez					HILAA
 		Carlos Gonz[á]lez					LILAS
 		Guillermo Fern[á]ndez				PERIC
 		L[ú]cia Carvalho					QUEEN
