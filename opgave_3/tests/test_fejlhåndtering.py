@@ -58,6 +58,7 @@ class TestCase(unittest.TestCase):
         self.assertNotEqual(fh.check_id('1', 2), 1)
         self.assertIsNone(fh.check_id('1', 2))
 
+    #TODO: Skriv resten af testene
     def test_check_name(self):
         pass
 

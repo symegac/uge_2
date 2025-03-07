@@ -1,16 +1,16 @@
 import os.path
 
-# Config
-DATA_DIR = os.path.join(os.path.dirname(__file__), "../data/")
-DATA_FILE = "app_log.txt"
-OUTPUT_DIR = os.path.join(DATA_DIR, "output/")
-PRIORITY = ["WARNING", "ERROR"]
+# Konfiguration
+data_dir = os.path.join(os.path.dirname(__file__), "../data/")
+data_file = "app_log.txt"
+output_dir = os.path.join(data_dir, "output/")
+log_types = ["WARNING", "ERROR"]
 
-with open(os.path.join(DATA_DIR, DATA_FILE)) as file:
+with open(os.path.join(data_dir, data_file)) as file:
     raw_data = file.readlines()
 
-for log_type in PRIORITY:
-    with open(os.path.join(OUTPUT_DIR, f"{log_type.lower()}s.txt"), 'w', encoding="UTF-8") as file:
+for log_type in log_types:
+    with open(os.path.join(output_dir, f"{log_type.lower()}s.txt"), 'w', encoding="UTF-8") as file:
         for log in raw_data:
             if log_type in log:
                 file.write(log)

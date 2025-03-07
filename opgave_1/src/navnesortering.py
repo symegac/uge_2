@@ -2,12 +2,12 @@ import os.path
 import matplotlib.pyplot as plt
 from collections import Counter
 
-# Config
-DATA_DIR = os.path.join(os.path.dirname(__file__), "../data/")
-DATA_FILE = "Navne_liste.txt"
+# Konfiguration
+data_dir = os.path.join(os.path.dirname(__file__), "../data/")
+data_file = "Navne_liste.txt"
 
 # Åbner fil med navneliste (bruger readline, da der kun er én linje)
-with open(os.path.join(DATA_DIR, DATA_FILE), "r", encoding="UTF-8") as file:
+with open(os.path.join(data_dir, data_file), "r", encoding="UTF-8") as file:
     raw_input = file.readline()
 
 # Sorterer liste alfabetisk og derefter efter længde
@@ -25,7 +25,7 @@ sorted_letter_counter = dict(sorted(letter_counter.items(), key=lambda x: x[0]))
 # Sorterer efter frekvens (zip for at gå fra [(k0, v0), (k1, v1), ...] til [(k0, k1, ...), (v0, v1, ...)], som lettere kan inputtes i matplotlib)
 most_frequent_letters = list(zip(*letter_counter.most_common()))
 
-# Matplotlib
+# Laver to subplots i Matplotlib
 fig, (ax1, ax2) = plt.subplots(1, 2)
 fig.suptitle("Frequency of letters in names")
 
@@ -46,7 +46,4 @@ plt.xlabel("No. of occurrences")
 plt.ylabel("Letter")
 ax2.invert_yaxis()
 
-if __name__ == "__main__":
-    print(sorted_names)
-    print(sorted_letter_counter)
-    plt.show()
+plt.show()
