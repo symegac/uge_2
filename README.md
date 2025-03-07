@@ -32,7 +32,10 @@ Denne opgave var også ret ligetil. Jeg fik sendt alle advarsler og fejl til hhv
 > py opgave_3/src/fejlhåndtering.py
 
 Denne opgave var i teorien ikke så svær, da man egentlig kun skulle læse/skrive og tjekke, om en række data var gyldig med try/except.
-Men da man skulle prøve at lave så deskriptive fejlbeskeder som muligt, voksede projektet hurtigt, da der var så mange forskellige typer fejl i datasættet at differentiere mellem. Så der er en masse kode, der ikke er blevet optimeret og refaktoriseret, fordi jeg blev ved med at skrive om.
+Men da man skulle prøve at lave så deskriptive fejlbeskeder som muligt, voksede projektet hurtigt, da der var så mange forskellige typer fejl i datasættet at differentiere mellem. Jeg gjorde endda sådan, at nogle fejltyper kunne fikses automatisk.
+Så der er en masse kode, der ikke er blevet optimeret og refaktoriseret, fordi jeg blev ved med at skrive om.
+
+Det rensede output med gyldige rækker kan findes [her](opgave_3/data/output/output.csv), mens loggen med fejlbehæftede rækker kan findes [her](opgave_3/data/output/log.txt).
 
 Jeg fik endda lavet et halvt testmodul, for at tjekke om mine funktioner for hvert datafelt kunne klare de forskellige typer fejl korrekt. Men det var kun to tests, jeg fik skrevet i sidste ende.
 For at køre testmodulet:
