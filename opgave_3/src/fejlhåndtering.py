@@ -124,13 +124,22 @@ def check_name(name: str, line: int = -1) -> str | None:
         print_error("Intet navn angivet.", line)
         return
     # Tjekker om 'name' indeholder andre tegn end bogstaver, mellemrum og bindestreger
-    if re.search(r"[^A-Za-z\-\ ]", name):
+    if re.search(r"[^A-zÀ-ÿ'\-\ ]", name):
         print_error("Kundenavnet indeholder ugyldige tegn.", line, name)
         return
-    # TODO: Tjek for "Dr., Mr., Mrs., Ms." etc. (samme i email, da denne måske er genereret ud fra de to første ord i navnet)
-    # Også efterstillet "Jr., Sr., II, III" etc.
+    # TODO: 
+    # Tjek for "Dr., Mr., Mrs., Ms." etc. (samme i email, da denne måske er genereret ud fra de to første ord i navnet)
     # Også efterstillede titler som "MD, PhD, DVM" etc.
-    # Også om alle ord i navnet starter med en majuskel (pas dog på med "van, von" o.lign.)
+        # Disse hører ikke til navnet
+    # Også efterstillet "Jr., Sr., II, III" etc.
+        # Disse er dog en faktisk del af navnet
+    # Også om alle ord i navnet starter med en majuskel, da nogle af de gyldige navne er fuldt lowercase
+        # Pas dog på med "van, von, d', l', de, da, di, do, den, van der, van den, de la, ter" o.lign.
+        # Der er også navne som https://en.wikipedia.org/wiki/Jacob_deGrom, https://en.wikipedia.org/wiki/Charles_ffoulkes og https://en.wikipedia.org/wiki/Richard_ffrench-Constant
+        # Og Ramund hin Unge, Leif den Lykkelige (Leifur heppni Eiríksson), Erik den Røde (Eiríkur rauði Þorvaldsson)
+        # Der er en grund til at det er lettere bare at have efternavne som all caps
+        # https://www.kalzumeus.com/2010/06/17/falsehoods-programmers-believe-about-names/
+        # Det er lettere bare at lade være
 
     return name
 
@@ -200,55 +209,63 @@ def check_amount(purchase_amount: str, line: int = -1) -> float | None:
 
     return amount
 
-def check_data(data: list[str]) -> list[dict[str]] | None:
+def check_entry(entry: str, line: int) -> dict[str] | None:
+    # Tjekker om rækken består af 4 datafelter (dvs. indeholder 3 kommaer)
+    split_entry = check_cols(entry, line)
+    if split_entry is None:
+        return
+
+    # Tjekker om kunde-id'et er gyldigt
+    customer_id = check_id(split_entry[0].strip(), line)
+    if customer_id is None:
+        return
+
+    # Tjekker om navnet er gyldigt
+    name = check_name(split_entry[1].strip(), line)
+    if name is None:
+        return
+
+    # Tjekker om emailadressen er gyldig
+    email = check_email(split_entry[2].strip(), line)
+    if email is None:
+        return
+
+    # Tjekker om beløbet er gyldigt
+    purchase_amount = check_amount(split_entry[3].strip(), line)
+    if purchase_amount is None:
+        return
+
+    valid_entry = {
+        "customer_id": customer_id,
+        "name": name,
+        "email": email,
+        "purchase_amount": purchase_amount
+    }
+    return valid_entry
+
+def check_data(data: list[str], header: bool = True) -> list[dict[str]] | None:
     valid_entries = []
 
     # Tjekker om der er data i datasættet
     if not data:
-        print("Det angivne datasæt indeholder ingen data.")
+        print_error("Det angivne datasæt indeholder ingen data.", io=True)
         return
 
     for line, entry in enumerate(data):
         # Springer over header
-        if line == 0:
+        if header and line == 0:
             continue
 
-        # Tjekker om rækken består af 4 datafelter (dvs. indeholder 3 kommaer)
-        split_entry = check_cols(entry, line)
-        if split_entry is None:
-            continue
-
-        # Tjekker om kunde-id'et er gyldigt
-        customer_id = check_id(split_entry[0].strip(), line)
-        if customer_id is None:
-            continue
-
-        # Tjekker om navnet er gyldigt
-        name = check_name(split_entry[1].strip(), line)
-        if name is None:
-            continue
-
-        # Tjekker om emailadressen er gyldig
-        email = check_email(split_entry[2].strip(), line)
-        if email is None:
-            continue
-
-        # Tjekker om beløbet er gyldigt
-        purchase_amount = check_amount(split_entry[3].strip(), line)
-        if purchase_amount is None:
+        checked_entry = check_entry(entry, line if header else line + 1)
+        if checked_entry is None:
             continue
 
         # De tilbageværende entries burde være gyldige og kan indsættes i en liste,
         # der kan bruges til at skrive til output-filen.
         # Man kunne også bare bruge ','.join() i stedet for at lave en dict, som alligevel laves om til en csv-streng
-        valid_entries.append({
-            "customer_id": customer_id,
-            "name": name,
-            "email": email,
-            "purchase_amount": purchase_amount
-        })
+        valid_entries.append(checked_entry)
 
-    return valid_entries
+    return valid_entries if valid_entries else None
 
 if __name__ == "__main__":
     raw_data = load_data()
