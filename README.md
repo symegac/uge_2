@@ -14,7 +14,7 @@
 
 ## Generelt
 Jeg synes jeg kom til at lave meget mere på nogle af opgaverne, end jeg egentlig havde behøvet, hvilket gik ud over den tid, jeg havde til overs til resten af opgaverne. Men det var heldigvis meget lærerigt.
-Jeg ved ikke om jeg kan komme med nogle specifikke ord på, hvad jeg helst vil have feedback på. Men alle råd om, hvad der kan forbedres, tager jeg glædeligt imod. F.eks. manglen af <code>if __name__ == "__main__"</code> i nogle af filerne og newline i slutningen af filer.
+Jeg ved ikke om jeg kan komme med nogle specifikke ord på, hvad jeg helst vil have feedback på. Men alle råd om, hvad der kan forbedres, tager jeg glædeligt imod. F.eks. manglen af <code>if \_\_name__ == "\_\_main__"</code> i nogle af filerne og newline i slutningen af filer.
 
 ## Opgaver
 ### Opgave 1
@@ -61,4 +61,4 @@ Jeg kendte allerede lidt til SQL, så det gik rimelig godt med at få skrevet de
 
 Jeg syntes det var meget mere intuitivt at lave selve analysen direkte i SQL-queriet end at udtrække nogle data med SQL og så analysere med Pandas. Men det var da meget lærerigt, da man skulle lære nogle nye ting i Pandas, f.eks. pendanten til SQL's <code> SELECT (col1 * col2) AS col3</code>.
 
-Der var rigtigt nok mange fejl i databasen, som vi fik at vide. De primære var, at ikke-ASCII-tegn var forsvundet, og at apostroffer var blevet til bindestreger i den ene tabel. En liste over fejl, som jeg fandt kan findes [her](suppl_opgave/Fejl%20i%20Northwind-data.txt).
+Der var rigtigt nok mange fejl i databasen, som vi fik at vide. De primære var, at ikke-ASCII-tegn var forsvundet, og at apostroffer var blevet til bindestreger i den ene tabel. En liste over fejl, som jeg fandt, kan findes [her](suppl_opgave/Fejl%20i%20Northwind-data.txt).

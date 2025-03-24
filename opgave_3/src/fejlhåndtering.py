@@ -54,7 +54,7 @@ def load_data(dir: str = data_dir, filename: str = data_file) -> list[str]:
 
 def save_data(entries: list[dict[str]] | list[str], dir: str = output_dir, filename: str = "output.csv", append: bool = False) -> None:
     try:
-        with open(os.path.join(dir, filename), "a" if append else "w", encoding="UTF-8") as file:
+        with open(os.path.join(dir, filename), 'a' if append else 'w', encoding="utf-8") as file:
             for entry in entries:
                 if isinstance(entry, dict):
                     entry = ','.join(str(value) for value in entry.values())
@@ -137,6 +137,7 @@ def check_name(name: str, line: int = -1) -> str | None:
         # Pas dog på med "van, von, d', l', de, da, di, do, den, van der, van den, de la, ter" o.lign.
         # Der er også navne som https://en.wikipedia.org/wiki/Jacob_deGrom, https://en.wikipedia.org/wiki/Charles_ffoulkes og https://en.wikipedia.org/wiki/Richard_ffrench-Constant
         # Og Ramund hin Unge, Leif den Lykkelige (Leifur heppni Eiríksson), Erik den Røde (Eiríkur rauði Þorvaldsson)
+        # Cees 't Hart, tidligere direktør i Carlsberg
         # Der er en grund til at det er lettere bare at have efternavne som all caps
         # https://www.kalzumeus.com/2010/06/17/falsehoods-programmers-believe-about-names/
         # Det er lettere bare at lade være

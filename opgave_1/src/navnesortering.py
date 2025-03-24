@@ -7,7 +7,7 @@ data_dir = os.path.join(os.path.dirname(__file__), "../data/")
 data_file = "Navne_liste.txt"
 
 # Åbner fil med navneliste (bruger readline, da der kun er én linje)
-with open(os.path.join(data_dir, data_file), "r", encoding="UTF-8") as file:
+with open(os.path.join(data_dir, data_file), "r", encoding="utf-8") as file:
     raw_input = file.readline()
 
 # Sorterer liste alfabetisk og derefter efter længde

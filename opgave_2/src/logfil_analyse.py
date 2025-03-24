@@ -6,11 +6,11 @@ data_file = "app_log.txt"
 output_dir = os.path.join(data_dir, "output/")
 log_types = ["WARNING", "ERROR"]
 
-with open(os.path.join(data_dir, data_file)) as file:
+with open(os.path.join(data_dir, data_file), 'r', encoding="utf-8") as file:
     raw_data = file.readlines()
 
 for log_type in log_types:
-    with open(os.path.join(output_dir, f"{log_type.lower()}s.txt"), 'w', encoding="UTF-8") as file:
+    with open(os.path.join(output_dir, f"{log_type.lower()}s.txt"), 'w', encoding="utf-8") as file:
         for log in raw_data:
             if log_type in log:
                 file.write(log)
